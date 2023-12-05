@@ -1,4 +1,5 @@
 # ML-P2-tweet-classification
+```
 ML-P2-Tweet-classification/
 ├── twitter-datasets/
 │   ├── train_neg_full.txt 
@@ -26,20 +27,8 @@ ML-P2-Tweet-classification/
 ├── run.py
 ├── requirements.txt
 └── README.md
+```
 
-```
-app
-└── screens
-    └── App
-        └── screens
-            ├── Admin
-            │   └── screens
-            │       ├── Reports
-            │       └── Users
-            └── Course
-                └── screens
-                    └── Assignments
-```
 
 
 # Tweet Classifier Project
