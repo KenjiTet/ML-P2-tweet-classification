@@ -1,6 +1,6 @@
 # ML-P2-tweet-classification
-ML-P2-Tweet-classification/ 
-├── twitter-datasets/ 
+ML-P2-Tweet-classification/\
+├── twitter-datasets/ \
 │   ├── train_neg_full.txt 
 │   ├── train_neg.txt 
 │   ├── train_pos_full.txt
