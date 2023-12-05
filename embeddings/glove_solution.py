@@ -7,8 +7,10 @@ import random
 
 def main():
     print("loading cooccurrence matrix")
-    with open("cooc.pkl", "rb") as f:
+
+    with open("resources/cooc.pkl", "rb") as f:
         cooc = pickle.load(f)
+
     print("{} nonzero entries".format(cooc.nnz))
 
     nmax = 100
@@ -33,7 +35,8 @@ def main():
             scale = 2 * eta * fn * (logn - np.dot(x, y))
             xs[ix, :] += scale * y
             ys[jy, :] += scale * x
-    np.save("embeddings", xs)
+            
+    np.save("resources/embeddings", xs)
 
 
 if __name__ == "__main__":

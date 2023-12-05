@@ -1,29 +1,36 @@
 # ML-P2-tweet-classification
 ```
 ML-P2-Tweet-classification/
+|
 ├── twitter-datasets/
 │   ├── train_neg_full.txt 
 │   ├── train_neg.txt 
 │   ├── train_pos_full.txt
 │   ├── train_pos.txt
 │   └── test_data.txt
-├── data_resources/
+|
+├── resources/
 │   ├── vocab_full.txt
 │   ├── vocab_cut.txt
 │   ├── vocab.pkl
 │   ├── embeddings.npy
 │   └── cooc.pkl
+|
 ├── embeddings/
 │   ├── pickle_vocab.py
 │   ├── cooc.py
 │   ├── glove_template.py
 │   ├── glove_solution.py
 │   └── build_vocab.py
+|
 ├── utils/
+│   ├── loads.py
 │   ├── preprocessing.py
 │   └── feature_extraction.py
+|
 ├── notebooks/
 │   └── EDA.ipynb
+|
 ├── run.py
 ├── requirements.txt
 └── README.md
@@ -48,6 +55,10 @@ To run the tweet classification project, follow these steps:
 1. **Install requirements**
 run the following: 
 pip install -r requirements.txt
+
+2.**Run the preprocessing file**
+To generate the corrects preprocessed tweets datatset, run the `preprocessing.py` file
+python preprocessing.py
 
 2. **Execute the Main Script:**
 Run the `run.py` script from the project's root directory: 

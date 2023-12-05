@@ -1,15 +1,7 @@
-from utils.preprocessing import load_tweets, preprocess_tweets
+from utils.loads import*
+from utils.preprocessing import preprocess_tweets
+from utils.feature_extraction import construct_features
 import subprocess
-
-
-
-
-def preprocess():
-    file_path = 'twitter-datasets/small_pos.txt'  # Path to your dataset
-    tweets = load_tweets(file_path)
-    cleaned_tweets = preprocess_tweets(tweets)
-
-    print(f"Exemple of clean tweet: {cleaned_tweets[0]}\n")
 
 
 def generate_word_embeddings():
@@ -39,8 +31,20 @@ def generate_word_embeddings():
 def main():
 
     print("\n---------------- BEGIN MAIN ------------------")
-    preprocess()
-    generate_word_embeddings()
+    
+    prep_tweet_path = "twitter-datasets/prep_small_pos.txt"
+    cleaned_tweets = load_tweets(prep_tweet_path)
+
+    #generate_word_embeddings()  #only need to be done once
+    
+    
+    # Load GloVe embeddings and vocabulary
+
+    embeddings = load_glove_embeddings('resources/embeddings.npy')
+    vocab = load_vocabulary('resources/vocab.pkl')
+
+    # Construct feature vectors for training tweets
+    features = construct_features(cleaned_tweets, embeddings, vocab)
 
     
 if __name__ == '__main__':

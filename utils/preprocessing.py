@@ -1,18 +1,5 @@
 import re
-
-def load_tweets(file_path):
-    """
-    Load tweets from a text file.
-
-    Args:
-    file_path (str): Path to the text file containing tweets.
-
-    Returns:
-    list: A list of tweets.
-    """
-    with open(file_path, 'r', encoding='utf-8') as file:
-        tweets = file.readlines()
-    return [tweet.strip() for tweet in tweets]
+from .loads import load_tweets
 
 def clean_tweet(tweet):
     """
@@ -42,3 +29,24 @@ def preprocess_tweets(tweets):
     list: A list of cleaned tweets.
     """
     return [clean_tweet(tweet) for tweet in tweets]
+
+def preprocess(input_file_path, output_file_path):
+    """
+    Load tweets, preprocess them, and write the cleaned tweets to a new file.
+
+    Args:
+    input_file_path (str): Path to the input text file containing tweets.
+    output_file_path (str): Path to the output text file for cleaned tweets.
+    """
+    tweets = load_tweets(input_file_path)
+    cleaned_tweets = preprocess_tweets(tweets)
+
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        for tweet in cleaned_tweets:
+            file.write(tweet + '\n')
+
+
+
+if __name__ == "__main__":
+    preprocess('twitter-datasets/small_pos.txt', 'twitter-datasets/prep_small_pos.txt')
+    preprocess('twitter-datasets/small_neg.txt', 'twitter-datasets/prep_small_neg.txt')

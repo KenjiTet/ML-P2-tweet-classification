@@ -27,8 +27,11 @@ def cut_vocab(input_file, output_file, min_count=5):
 
 
 def main():
-    build_vocab(['twitter-datasets/small_pos.txt', 'twitter-datasets/small_neg.txt'], 'vocab_full.txt')
-    cut_vocab('vocab_full.txt', 'vocab_cut.txt')
+    input_file_path1 = "twitter-datasets/prep_small_pos.txt"
+    input_file_path2 = "twitter-datasets/prep_small_neg.txt"
+
+    build_vocab([input_file_path1, input_file_path2], 'resources/vocab_full.txt')
+    cut_vocab('resources/vocab_full.txt', 'resources/vocab_cut.txt')
 
 if __name__ == "__main__":
     main()
