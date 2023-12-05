@@ -49,13 +49,7 @@ To run the tweet classification project, follow these steps:
 run the following: 
 pip install -r requirements.txt
 
-2. **Preprocess the Data:**
-The project requires preprocessed tweet data. If you have not preprocessed your data, follow the instructions in `utils/preprocessing.py`.
-
-3. **Feature Extraction:**
-Ensure your data is ready for feature extraction as outlined in `utils/feature_extraction.py`.
-
-4. **Execute the Main Script:**
+2. **Execute the Main Script:**
 Run the `run.py` script from the project's root directory: 
 python run.py
 
