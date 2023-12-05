@@ -1,37 +1,32 @@
 # ML-P2-tweet-classification
 ML-P2-Tweet-classification/
-│
 ├── twitter-datasets/
 │   ├── train_neg_full.txt
 │   ├── train_neg.txt
 │   ├── train_pos_full.txt
 │   ├── train_pos.txt
 │   └── test_data.txt
-│
-├── data_resources/ 
+├── data_resources/
 │   ├── vocab_full.txt
 │   ├── vocab_cut.txt
 │   ├── vocab.pkl
 │   ├── embeddings.npy
 │   └── cooc.pkl
-│
-├── embeddings/ 
+├── embeddings/
 │   ├── pickle_vocab.py
 │   ├── cooc.py
 │   ├── glove_template.py
 │   ├── glove_solution.py
 │   └── build_vocab.py
-│
 ├── utils/
-│   ├── preprocessing.py 
-│   └── feature_extraction.py 
-│
-├── notebooks/ 
+│   ├── preprocessing.py
+│   └── feature_extraction.py
+├── notebooks/
 │   └── EDA.ipynb
-│
-├── run.py 
-├── requirements.txt 
-└── README.md 
+├── run.py
+├── requirements.txt
+└── README.md
+
 
 
 
