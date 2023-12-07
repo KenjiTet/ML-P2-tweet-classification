@@ -1,8 +1,5 @@
-from utils.loads import*
-from utils.preprocessing import*
-from utils.feature_extraction import construct_features
 import subprocess
-
+from utils.preprocessing import*
 
 def generate_word_embeddings():
 
@@ -38,8 +35,7 @@ def main():
     prep_path_neg = 'twitter-datasets/prep_train_neg_full.txt'
     prep_path_pos = 'twitter-datasets/prep_train_pos_full.txt'
     
-    preprocess(path_neg, prep_path_neg)
-    preprocess(path_pos, prep_path_pos)
+
 
     cleaned_tweets = combine_dataset(prep_path_pos, prep_path_neg)
 
@@ -48,8 +44,8 @@ def main():
     
     # Load GloVe embeddings and vocabulary
 
-    embeddings = load_glove_embeddings('resources/embeddings.npy')
-    vocab = load_vocabulary('resources/vocab.pkl')
+    #embeddings = load_glove_embeddings('resources/embeddings.npy')
+    #vocab = load_vocabulary('resources/vocab.pkl')
 
     # Construct feature vectors for training tweets
     #features = construct_features(cleaned_tweets, embeddings, vocab)
@@ -58,3 +54,5 @@ def main():
 if __name__ == '__main__':
     main()
     
+
+
