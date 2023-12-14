@@ -52,6 +52,6 @@ if __name__ == "__main__":
 	y_submission = bayes_model(x_train,y_train,x_validation,y_validation, test_set)
 	ids=np.arange(1,len(y_submission)+1)
 	
-	create_csv_submission(ids, y_submission, "/models/Submissions/submission_bayes_model.csv")
+	create_csv_submission(ids, y_submission, "models/Submissions/submission_bayes_model.csv")
 
 	
