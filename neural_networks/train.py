@@ -30,7 +30,9 @@ EMBED_DIM = embeddings.shape[1] # = 20
 """
 
 
-train_set, unknown = train_test_df()
+
+
+train_set, unknown = train_test_cleaner()
 
 with open("tweet.pkl", "wb") as f:
     pickle.dump(train_set, f)

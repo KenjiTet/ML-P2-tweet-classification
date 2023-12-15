@@ -36,7 +36,7 @@ def preprocess_tweets(tweets):
     """
     return [clean_tweet(tweet) for tweet in tweets]
 
-def preprocess(input_file_path, output_file_path):
+def preprocess(input_file_path, output_file_path, tweets):
     """
     Load tweets, preprocess them, and write the cleaned tweets to a new file.
 
@@ -44,7 +44,6 @@ def preprocess(input_file_path, output_file_path):
     input_file_path (str): Path to the input text file containing tweets.
     output_file_path (str): Path to the output text file for cleaned tweets.
     """
-    tweets = load_tweets(input_file_path)
     cleaned_tweets = preprocess_tweets(tweets)
 
     with open(output_file_path, 'w', encoding='utf-8') as file:
@@ -95,7 +94,6 @@ def replace_questions(x):
     x = re.sub('(\? )+(?=(\?))', '', x)
     x = re.sub(r"(\?)+", ' questionMark ', x)
     return x
-
 
 def tokenization(text):
     text = re.split('\W+', text)
@@ -158,7 +156,6 @@ def split_negation(text):
     text = neg_pattern.sub(lambda x: negations_dict[x.group()], text)
     return text
 
-
 def replace_contractions(text):
     contractions_dict = {"i'm":"i am", "wanna":"want to", "whi":"why", "gonna":"going to",
                     "wa":"was","nite":"night","there's":"there is","that's":"that is",
@@ -167,7 +164,6 @@ def replace_contractions(text):
                     "donno":"do not know","donnow":"do not know","gimme":"give me"}
     contraction_pattern = re.compile(r'\b(' + '|'.join(contractions_dict.keys()) + r')\b')
     text = contraction_pattern.sub(lambda x: contractions_dict[x.group()], text)
-
     
     contraction_patterns = [(r'ew(\w+)', 'disgusting'),(r'argh(\w+)', 'argh'),(r'fack(\w+)', 'fuck'),
                             (r'sigh(\w+)', 'sigh'),(r'fuck(\w+)', 'fuck'),(r'omg(\w+)', 'omg'),
@@ -178,7 +174,6 @@ def replace_contractions(text):
                             (' y+u+p+ ', ' yes '),(' y+e+p+ ', ' yes '),(' idk ',' i do not know '),(' ima ', ' i am going to '),
                             (' nd ',' and '),(' dem ',' them '),(' n+a+h+ ', ' no '),(' n+a+ ', ' no '),(' w+o+w+', 'wow '),
                             (' w+o+a+ ', ' wow '),(' w+o+ ', ' wow '),(' a+w+ ', ' cute '), (' lmao ', ' haha '),(' gad ', ' god ')]
-    
     patterns = [(re.compile(regex_exp, re.IGNORECASE), replacement)
                 for (regex_exp, replacement) in contraction_patterns]
     for (pattern, replacement) in patterns:
@@ -215,22 +210,54 @@ def tweet_cleaner(tweet):
     #Lemmatization
     l = WordNetLemmatizer() 
     tweet = tokenization(tweet)
-
     tweet = join_tokens(lemmatizer(l,tweet))
     return tweet
 
 
 def train_test_cleaner():
 	"""Clean train set and test set and return cleaned dataframes"""
+	#Read positive tweets train file
+	with open('twitter-datasets/train_pos_full.txt',"r",encoding="utf8") as file:
+		train_pos = file.read().split('\n')
+	train_pos = pd.DataFrame({'tweet' : train_pos})[:len(train_pos)-1]
+	#Read negative tweets train file
+	with open('twitter-datasets/train_neg_full.txt',"r",encoding="utf8") as file:
+		train_neg = file.read().split('\n')
+	train_neg = pd.DataFrame({'tweet' : train_neg})[:len(train_neg)-1]
+	#Read test tweets file
+	with open('twitter-datasets/test_data.txt',"r",encoding="utf8") as file:
+		df_unknown = file.read().split('\n')
+	df_unknown = pd.DataFrame({'tweet' : df_unknown})[:len(df_unknown)-1]
+	df_unknown.index += 1 
+	df_unknown['tweet'] = df_unknown['tweet'].apply(lambda x : str(x).split(',', maxsplit=1)[1])
+		
+	#Drop duplicates
+	train_neg.drop_duplicates(inplace=True)
+	train_pos.drop_duplicates(inplace=True)
+	
+	#Add labels
+	train_pos['label'] = 1
+	train_neg['label'] = 0
+	train_set = pd.concat([train_pos, train_neg], ignore_index=True)
+
+	#Apply tweet cleaner to train set and test
+	train_set['tweet'] = train_set['tweet'].apply(tweet_cleaner)
+	df_unknown['tweet'] = df_unknown['tweet'].apply(tweet_cleaner)
+	
+	return train_set,df_unknown
+	
+
+def train_test_df():
+	"""Clean train set and test set and return cleaned dataframes"""
      
 	#Read positive tweets train file
-	with open('twitter-datasets/train_pos.txt',"r",encoding="utf8") as file:
+	with open('twitter-datasets/prep_train_pos_full.txt',"r",encoding="utf8") as file:
 		train_pos = file.read().split('\n')
 	train_pos = pd.DataFrame({'tweet' : train_pos})[:len(train_pos)-1]
      
 
 	#Read negative tweets train file
-	with open('twitter-datasets/train_neg.txt',"r",encoding="utf8") as file:
+	with open('twitter-datasets/prep_train_neg_full.txt',"r",encoding="utf8") as file:
 		train_neg = file.read().split('\n')
 	train_neg = pd.DataFrame({'tweet' : train_neg})[:len(train_neg)-1]
      
@@ -253,15 +280,8 @@ def train_test_cleaner():
      
 	train_set = pd.concat([train_pos, train_neg], ignore_index=True)
 
-
-	#Apply tweet cleaner to train set and test
-	train_set['tweet'] = train_set['tweet'].apply(tweet_cleaner)
-	df_unknown['tweet'] = df_unknown['tweet'].apply(tweet_cleaner)
 	
 	return train_set, df_unknown
-
-	
-
 
 
 
