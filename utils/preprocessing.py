@@ -213,15 +213,22 @@ def tweet_cleaner(tweet):
     tweet = join_tokens(lemmatizer(l,tweet))
     return tweet
 
+def preprocess_tweets():
+
+    train_set, _ = train_test_cleaner()
+
+    with open("resources/tweet.pkl", "wb") as f:
+        pickle.dump(train_set, f)  
+
 
 def train_test_cleaner():
 	"""Clean train set and test set and return cleaned dataframes"""
 	#Read positive tweets train file
-	with open('twitter-datasets/train_pos_full.txt',"r",encoding="utf8") as file:
+	with open('twitter-datasets/small_pos.txt',"r",encoding="utf8") as file:
 		train_pos = file.read().split('\n')
 	train_pos = pd.DataFrame({'tweet' : train_pos})[:len(train_pos)-1]
 	#Read negative tweets train file
-	with open('twitter-datasets/train_neg_full.txt',"r",encoding="utf8") as file:
+	with open('twitter-datasets/small_neg.txt',"r",encoding="utf8") as file:
 		train_neg = file.read().split('\n')
 	train_neg = pd.DataFrame({'tweet' : train_neg})[:len(train_neg)-1]
 	#Read test tweets file
