@@ -77,8 +77,8 @@ def load_best_model(model_type):
         return None
     
 
-def prepare_data():
-    df_tweet = pd.read_pickle("resources/tweet.pkl")
+def prepare_data(size):
+    df_tweet = pd.read_pickle(f"resources/tweet_{size}.pkl")
     df_tweet = df_tweet.sample(frac=1, random_state=1).reset_index(drop=True)
     
     X_train, X_test, y_train, y_test = train_test_split(df_tweet['tweet'], df_tweet['label'], test_size=0.05, random_state=42)
@@ -90,7 +90,7 @@ def prepare_data():
 
 
 
-    embedding_matrix = create_embedding_matrix(vocab_size, tokenizer)
+    embedding_matrix = create_embedding_matrix(vocab_size, tokenizer, size)
 
 
     max_len = 100
@@ -110,14 +110,14 @@ def tok_and_pad(df,maxlen, tokenizer):
 
     return df
 
-def create_embedding_matrix(vocab_size, tokenizer):
+def create_embedding_matrix(vocab_size, tokenizer, size):
     """
     Creates the embedding matrix from the file that contains the pre-computed embedding vectors
     """
     
     #open file
     embeddings_dictionary = dict()
-    glove_file = open('resources/trained_w2v_embeddings.txt', encoding="utf8")
+    glove_file = open(f'resources/trained_w2v_embeddings_{size}.txt', encoding="utf8")
     for line in glove_file:
         records = line.split()
         word = records[0]

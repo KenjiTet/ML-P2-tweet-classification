@@ -213,46 +213,58 @@ def tweet_cleaner(tweet):
     tweet = join_tokens(lemmatizer(l,tweet))
     return tweet
 
-def preprocess_tweets():
+def preprocess_tweets(size):
 
-    train_set, _ = train_test_cleaner()
 
-    with open("resources/tweet.pkl", "wb") as f:
+    train_set, _ = train_test_cleaner(size)
+
+    with open(f"resources/tweet_{size}.pkl", "wb") as f:
         pickle.dump(train_set, f)  
 
 
-def train_test_cleaner():
-	"""Clean train set and test set and return cleaned dataframes"""
-	#Read positive tweets train file
-	with open('twitter-datasets/small_pos.txt',"r",encoding="utf8") as file:
-		train_pos = file.read().split('\n')
-	train_pos = pd.DataFrame({'tweet' : train_pos})[:len(train_pos)-1]
-	#Read negative tweets train file
-	with open('twitter-datasets/small_neg.txt',"r",encoding="utf8") as file:
-		train_neg = file.read().split('\n')
-	train_neg = pd.DataFrame({'tweet' : train_neg})[:len(train_neg)-1]
-	#Read test tweets file
-	with open('twitter-datasets/test_data.txt',"r",encoding="utf8") as file:
-		df_unknown = file.read().split('\n')
-	df_unknown = pd.DataFrame({'tweet' : df_unknown})[:len(df_unknown)-1]
-	df_unknown.index += 1 
-	df_unknown['tweet'] = df_unknown['tweet'].apply(lambda x : str(x).split(',', maxsplit=1)[1])
-		
-	#Drop duplicates
-	train_neg.drop_duplicates(inplace=True)
-	train_pos.drop_duplicates(inplace=True)
-	
-	#Add labels
-	train_pos['label'] = 1
-	train_neg['label'] = 0
-	train_set = pd.concat([train_pos, train_neg], ignore_index=True)
+def train_test_cleaner(size):
 
-	#Apply tweet cleaner to train set and test
-	train_set['tweet'] = train_set['tweet'].apply(tweet_cleaner)
-	df_unknown['tweet'] = df_unknown['tweet'].apply(tweet_cleaner)
-	
-	return train_set,df_unknown
-	
+    if size == "full":
+         neg_path = 'twitter-datasets/train_neg_full.txt'
+         pos_path = 'twitter-datasets/train_pos_full.txt'
+
+    else:
+         neg_path = 'twitter-datasets/small_neg.txt'
+         pos_path = 'twitter-datasets/small_pos.txt'
+
+    """Clean train set and test set and return cleaned dataframes"""
+
+    # Read positive tweets train file
+    with open(pos_path, "r", encoding="utf8") as file:
+        train_pos = file.read().split('\n')
+    train_pos = pd.DataFrame({'tweet': train_pos})[:len(train_pos)-1]
+
+    # Read negative tweets train file
+    with open(neg_path, "r", encoding="utf8") as file:
+        train_neg = file.read().split('\n')
+    train_neg = pd.DataFrame({'tweet': train_neg})[:len(train_neg)-1]
+
+    # Read test tweets file
+    with open('twitter-datasets/test_data.txt', "r", encoding="utf8") as file:
+        df_unknown = file.read().split('\n')
+    df_unknown = pd.DataFrame({'tweet': df_unknown})[:len(df_unknown)-1]
+    df_unknown.index += 1 
+    df_unknown['tweet'] = df_unknown['tweet'].apply(lambda x: str(x).split(',', maxsplit=1)[1])
+
+    # Drop duplicates
+    train_neg.drop_duplicates(inplace=True)
+    train_pos.drop_duplicates(inplace=True)
+
+    # Add labels
+    train_pos['label'] = 1
+    train_neg['label'] = 0
+    train_set = pd.concat([train_pos, train_neg], ignore_index=True)
+
+    # Apply tweet cleaner to train set and test set
+    train_set['tweet'] = train_set['tweet'].apply(tweet_cleaner)
+    df_unknown['tweet'] = df_unknown['tweet'].apply(tweet_cleaner)
+
+    return train_set, df_unknown
 
 def train_test_df():
 	"""Clean train set and test set and return cleaned dataframes"""
