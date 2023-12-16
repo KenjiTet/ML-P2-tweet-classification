@@ -1,0 +1,63 @@
+2023-12-16 11:32:01,136 INFO    StreamThr :3596 [internal.py:wandb_internal():86] W&B internal server running at pid: 3596, started at: 2023-12-16 11:32:01.136090
+2023-12-16 11:32:01,136 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: status
+2023-12-16 11:32:01,136 INFO    WriterThread:3596 [datastore.py:open_for_write():85] open: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\run-z47cm0aw.wandb
+2023-12-16 11:32:01,136 DEBUG   SenderThread:3596 [sender.py:send():380] send: header
+2023-12-16 11:32:01,200 DEBUG   SenderThread:3596 [sender.py:send():380] send: run
+2023-12-16 11:32:01,958 INFO    SenderThread:3596 [dir_watcher.py:__init__():211] watching files in: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files
+2023-12-16 11:32:01,958 INFO    SenderThread:3596 [sender.py:_start_run_threads():1122] run started: z47cm0aw with start time 1702722721.136089
+2023-12-16 11:32:01,973 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: check_version
+2023-12-16 11:32:01,973 DEBUG   SenderThread:3596 [sender.py:send_request():407] send_request: check_version
+2023-12-16 11:32:02,439 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: run_start
+2023-12-16 11:32:02,455 DEBUG   HandlerThread:3596 [system_info.py:__init__():32] System info init
+2023-12-16 11:32:02,455 DEBUG   HandlerThread:3596 [system_info.py:__init__():47] System info init done
+2023-12-16 11:32:02,455 INFO    HandlerThread:3596 [system_monitor.py:start():194] Starting system monitor
+2023-12-16 11:32:02,455 INFO    SystemMonitor:3596 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2023-12-16 11:32:02,455 INFO    HandlerThread:3596 [system_monitor.py:probe():214] Collecting system info
+2023-12-16 11:32:02,455 INFO    SystemMonitor:3596 [interfaces.py:start():190] Started cpu monitoring
+2023-12-16 11:32:02,455 DEBUG   HandlerThread:3596 [system_info.py:probe():196] Probing system
+2023-12-16 11:32:02,455 INFO    SystemMonitor:3596 [interfaces.py:start():190] Started disk monitoring
+2023-12-16 11:32:02,455 INFO    SystemMonitor:3596 [interfaces.py:start():190] Started memory monitoring
+2023-12-16 11:32:02,486 INFO    SystemMonitor:3596 [interfaces.py:start():190] Started network monitoring
+2023-12-16 11:32:02,486 DEBUG   HandlerThread:3596 [system_info.py:_probe_git():181] Probing git
+2023-12-16 11:32:02,596 DEBUG   HandlerThread:3596 [system_info.py:_probe_git():189] Probing git done
+2023-12-16 11:32:02,596 DEBUG   HandlerThread:3596 [system_info.py:probe():244] Probing system done
+2023-12-16 11:32:02,596 DEBUG   HandlerThread:3596 [system_monitor.py:probe():223] {'os': 'Windows-10-10.0.22621-SP0', 'python': '3.11.4', 'heartbeatAt': '2023-12-16T10:32:02.455448', 'startedAt': '2023-12-16T10:32:01.086333', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': 'c:\\Users\\kenji\\OneDrive\\Documents\\EPFL\\MA3\\ML\\Project 2\\ML-P2-tweet-classification\\neural_networks\\finetune.py', 'codePathLocal': 'neural_networks\\finetune.py', 'codePath': 'neural_networks\\finetune.py', 'git': {'remote': 'https://github.com/KenjiTet/ML-P2-tweet-classification.git', 'commit': '8179f47c1eba529c3615178f4ec9d3f10c1d4ada'}, 'email': 'kenji.tetard@epfl.ch', 'root': 'C:/Users/kenji/OneDrive/Documents/EPFL/MA3/ML/Project 2/ML-P2-tweet-classification', 'host': 'Kenji', 'username': 'kenji', 'executable': 'C:\\Users\\kenji\\miniconda3\\python.exe', 'cpu_count': 10, 'cpu_count_logical': 12, 'cpu_freq': {'current': 1733.0, 'min': 0.0, 'max': 2600.0}, 'cpu_freq_per_core': [{'current': 1733.0, 'min': 0.0, 'max': 2600.0}], 'disk': {'/': {'total': 475.54394149780273, 'used': 124.98674011230469}}, 'memory': {'total': 15.828418731689453}}
+2023-12-16 11:32:02,596 INFO    HandlerThread:3596 [system_monitor.py:probe():224] Finished collecting system info
+2023-12-16 11:32:02,596 INFO    HandlerThread:3596 [system_monitor.py:probe():227] Publishing system info
+2023-12-16 11:32:02,596 DEBUG   HandlerThread:3596 [system_info.py:_save_pip():52] Saving list of pip packages installed into the current environment
+2023-12-16 11:32:02,596 DEBUG   HandlerThread:3596 [system_info.py:_save_pip():68] Saving pip packages done
+2023-12-16 11:32:02,596 DEBUG   HandlerThread:3596 [system_info.py:_save_conda():75] Saving list of conda packages installed into the current environment
+2023-12-16 11:32:02,972 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\requirements.txt
+2023-12-16 11:32:02,972 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\conda-environment.yaml
+2023-12-16 11:32:11,313 DEBUG   HandlerThread:3596 [system_info.py:_save_conda():87] Saving conda packages done
+2023-12-16 11:32:11,313 INFO    HandlerThread:3596 [system_monitor.py:probe():229] Finished publishing system info
+2023-12-16 11:32:11,313 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: status_report
+2023-12-16 11:32:11,313 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: keepalive
+2023-12-16 11:32:11,313 DEBUG   SenderThread:3596 [sender.py:send():380] send: files
+2023-12-16 11:32:11,313 INFO    SenderThread:3596 [sender.py:_save_file():1378] saving file wandb-metadata.json with policy now
+2023-12-16 11:32:11,337 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: stop_status
+2023-12-16 11:32:11,337 DEBUG   SenderThread:3596 [sender.py:send_request():407] send_request: stop_status
+2023-12-16 11:32:11,337 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: internal_messages
+2023-12-16 11:32:11,895 DEBUG   SenderThread:3596 [sender.py:send():380] send: telemetry
+2023-12-16 11:32:11,895 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: status_report
+2023-12-16 11:32:12,004 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\conda-environment.yaml
+2023-12-16 11:32:12,004 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\wandb-metadata.json
+2023-12-16 11:32:12,178 INFO    wandb-upload_0:3596 [upload_job.py:push():131] Uploaded file C:\Users\kenji\AppData\Local\Temp\tmpycitywbcwandb\i4k26a5i-wandb-metadata.json
+2023-12-16 11:32:14,025 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:16,062 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:16,959 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: status_report
+2023-12-16 11:32:18,082 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:20,091 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:21,984 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: status_report
+2023-12-16 11:32:22,136 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:24,153 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:26,176 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:26,353 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: internal_messages
+2023-12-16 11:32:26,353 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: stop_status
+2023-12-16 11:32:26,353 DEBUG   SenderThread:3596 [sender.py:send_request():407] send_request: stop_status
+2023-12-16 11:32:27,034 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: status_report
+2023-12-16 11:32:28,206 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:30,271 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:32,173 DEBUG   HandlerThread:3596 [handler.py:handle_request():146] handle_request: status_report
+2023-12-16 11:32:32,273 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\output.log
+2023-12-16 11:32:33,349 INFO    Thread-16 :3596 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\kenji\OneDrive\Documents\EPFL\MA3\ML\Project 2\ML-P2-tweet-classification\wandb\run-20231216_113201-z47cm0aw\files\config.yaml

@@ -1,0 +1,199 @@
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ embedding (Embedding)       (None, 100, 100)          2016000
+ dropout (Dropout)           (None, 100, 100)          0
+ conv1d (Conv1D)             (None, 98, 64)            19264
+ conv1d_1 (Conv1D)           (None, 96, 128)           24704
+ conv1d_2 (Conv1D)           (None, 94, 256)           98560
+ conv1d_3 (Conv1D)           (None, 92, 512)           393728
+ flatten (Flatten)           (None, 47104)             0
+ dense (Dense)               (None, 512)               24117760
+ dropout_1 (Dropout)         (None, 512)               0
+ activation (Activation)     (None, 512)               0
+ dense_1 (Dense)             (None, 1)                 513
+=================================================================
+Total params: 26670529 (101.74 MB)
+Trainable params: 26670529 (101.74 MB)
+Non-trainable params: 0 (0.00 Byte)
+_________________________________________________________________
+None
+Epoch 1/6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 45s 174ms/step - loss: 0.6140 - accuracy: 0.6381 - val_loss: 0.5384 - val_accuracy: 0.7158
+Epoch 2/6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 54s 212ms/step - loss: 0.4913 - accuracy: 0.7483 - val_loss: 0.4654 - val_accuracy: 0.7819
+Epoch 3/6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 74s 288ms/step - loss: 0.4391 - accuracy: 0.7855 - val_loss: 0.4390 - val_accuracy: 0.7761
+Epoch 4/6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 73s 283ms/step - loss: 0.4086 - accuracy: 0.8099 - val_loss: 0.4112 - val_accuracy: 0.7958
+Epoch 5/6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 88s 344ms/step - loss: 0.3782 - accuracy: 0.8252 - val_loss: 0.4220 - val_accuracy: 0.8005
+Epoch 6/6
+
+
+
+
+
+

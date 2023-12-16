@@ -6,8 +6,10 @@ import argparse
 
 if __name__ == '__main__':
 
+    #python setup.py size small
     parser = argparse.ArgumentParser(description='Train or Evaluate a Model')
-    parser.add_argument('--size', type=str, required=True, help='Mode to run: "full" or "small"')
+    parser.add_argument('--size', type=str, required=True, help='Mode to run: "full", "medium" or "small"')
+    parser.add_argument('--dim', type=str, required=True, help='Mode to run: "full", "medium" or "small"')
     
     args = parser.parse_args()
 
@@ -16,5 +18,5 @@ if __name__ == '__main__':
     print("Finish preprocessing!")
 
     print("Learning embeddings...")
-    learn_w2v_embedding(args.size)
+    learn_w2v_embedding(args.size, args.dim)
     print("Finish learning embeddings")

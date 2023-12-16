@@ -1,0 +1,49 @@
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ embedding (Embedding)       (None, 50, 200)           4032000
+ masking (Masking)           (None, 50, 200)           0
+ bidirectional (Bidirection  (None, 128)               135680
+ al)
+ dense (Dense)               (None, 64)                8256
+ dropout (Dropout)           (None, 64)                0
+ dense_1 (Dense)             (None, 1)                 65
+ activation (Activation)     (None, 1)                 0
+=================================================================
+Total params: 4176001 (15.93 MB)
+Trainable params: 144001 (562.50 KB)
+Non-trainable params: 4032000 (15.38 MB)
+_________________________________________________________________
+None
+Epoch 1/6
+
+
+
+128/128 [==============================] - 13s 67ms/step - loss: 0.5501 - accuracy: 0.7011 - val_loss: 0.4619 - val_accuracy: 0.7773
+Epoch 2/6
+
+
+
+128/128 [==============================] - 8s 63ms/step - loss: 0.4228 - accuracy: 0.8000 - val_loss: 0.4155 - val_accuracy: 0.7865
+Epoch 3/6
+
+
+
+128/128 [==============================] - 8s 65ms/step - loss: 0.3595 - accuracy: 0.8375 - val_loss: 0.4159 - val_accuracy: 0.8039
+Epoch 4/6
+
+
+
+128/128 [==============================] - 8s 63ms/step - loss: 0.3025 - accuracy: 0.8705 - val_loss: 0.4781 - val_accuracy: 0.7749
+Epoch 5/6
+
+
+
+128/128 [==============================] - 8s 62ms/step - loss: 0.2471 - accuracy: 0.8964 - val_loss: 0.4893 - val_accuracy: 0.7912
+Epoch 6/6
+
+
+
+128/128 [==============================] - 8s 62ms/step - loss: 0.1879 - accuracy: 0.9281 - val_loss: 0.5579 - val_accuracy: 0.7877
+29/29 [==============================] - 0s 9ms/step - loss: 0.5151 - accuracy: 0.8040

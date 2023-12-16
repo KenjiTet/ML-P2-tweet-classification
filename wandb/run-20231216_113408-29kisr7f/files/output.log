@@ -1,0 +1,105 @@
+WARNING:tensorflow:From C:\Users\kenji\miniconda3\Lib\site-packages\keras\src\backend.py:873: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
+WARNING:tensorflow:From C:\Users\kenji\miniconda3\Lib\site-packages\keras\src\utils\tf_utils.py:492: The name tf.ragged.RaggedTensorValue is deprecated. Please use tf.compat.v1.ragged.RaggedTensorValue instead.
+WARNING:tensorflow:From C:\Users\kenji\miniconda3\Lib\site-packages\keras\src\engine\base_layer_utils.py:384: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ embedding (Embedding)       (None, 50, 100)           2016000
+ dropout (Dropout)           (None, 50, 100)           0
+ conv1d (Conv1D)             (None, 48, 64)            19264
+ conv1d_1 (Conv1D)           (None, 46, 128)           24704
+ conv1d_2 (Conv1D)           (None, 44, 256)           98560
+ conv1d_3 (Conv1D)           (None, 42, 512)           393728
+ flatten (Flatten)           (None, 21504)             0
+ dense (Dense)               (None, 512)               11010560
+ dropout_1 (Dropout)         (None, 512)               0
+ activation (Activation)     (None, 512)               0
+ dense_1 (Dense)             (None, 1)                 513
+=================================================================
+Total params: 13563329 (51.74 MB)
+Trainable params: 13563329 (51.74 MB)
+Non-trainable params: 0 (0.00 Byte)
+_________________________________________________________________
+None
+Epoch 1/6
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 20s 73ms/step - loss: 0.6142 - accuracy: 0.6491 - val_loss: 0.5179 - val_accuracy: 0.7285
+Epoch 2/6
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 20s 79ms/step - loss: 0.4875 - accuracy: 0.7548 - val_loss: 0.4554 - val_accuracy: 0.7599
+Epoch 3/6
+
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 23s 89ms/step - loss: 0.4446 - accuracy: 0.7862 - val_loss: 0.4385 - val_accuracy: 0.7981
+Epoch 4/6
+
+
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 23s 90ms/step - loss: 0.4087 - accuracy: 0.8093 - val_loss: 0.4568 - val_accuracy: 0.7900
+Epoch 5/6
+
+
+
+
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 30s 117ms/step - loss: 0.3796 - accuracy: 0.8220 - val_loss: 0.4215 - val_accuracy: 0.8039
+Epoch 6/6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+256/256 [==============================] - 33s 131ms/step - loss: 0.3492 - accuracy: 0.8428 - val_loss: 0.4441 - val_accuracy: 0.8028
+29/29 [==============================] - 0s 13ms/step - loss: 0.4515 - accuracy: 0.7974

@@ -1,0 +1,38 @@
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ embedding (Embedding)       (None, 100, 100)          2016000
+ gru (GRU)                   (None, 64)                31872
+ flatten (Flatten)           (None, 64)                0
+ dense (Dense)               (None, 64)                4160
+ dropout (Dropout)           (None, 64)                0
+ dense_1 (Dense)             (None, 1)                 65
+=================================================================
+Total params: 2052097 (7.83 MB)
+Trainable params: 36097 (141.00 KB)
+Non-trainable params: 2016000 (7.69 MB)
+_________________________________________________________________
+None
+Epoch 1/6
+
+
+64/64 [==============================] - 7s 90ms/step - loss: 0.6932 - accuracy: 0.5051 - val_loss: 0.6929 - val_accuracy: 0.5209
+Epoch 2/6
+
+
+64/64 [==============================] - 5s 78ms/step - loss: 0.6932 - accuracy: 0.5037 - val_loss: 0.6929 - val_accuracy: 0.5209
+Epoch 3/6
+
+64/64 [==============================] - 5s 80ms/step - loss: 0.6931 - accuracy: 0.5025 - val_loss: 0.6930 - val_accuracy: 0.5209
+Epoch 4/6
+
+
+64/64 [==============================] - 5s 81ms/step - loss: 0.6931 - accuracy: 0.5026 - val_loss: 0.6928 - val_accuracy: 0.5209
+Epoch 5/6
+
+64/64 [==============================] - 5s 80ms/step - loss: 0.6932 - accuracy: 0.5035 - val_loss: 0.6930 - val_accuracy: 0.5209
+Epoch 6/6
+
+64/64 [==============================] - 5s 81ms/step - loss: 0.6932 - accuracy: 0.5035 - val_loss: 0.6930 - val_accuracy: 0.5209
+29/29 [==============================] - 0s 8ms/step - loss: 0.6930 - accuracy: 0.5176

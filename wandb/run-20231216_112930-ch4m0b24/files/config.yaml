@@ -1,0 +1,63 @@
+wandb_version: 1
+
+batch_size:
+  desc: null
+  value: 64
+dim:
+  desc: null
+  value: 100
+dropout_rate:
+  desc: null
+  value: 0.2
+filters_list:
+  desc: null
+  value:
+  - 64
+  - 128
+  - 256
+  - 512
+kernel_sizes:
+  desc: null
+  value:
+  - 3
+  - 3
+  - 3
+  - 3
+lr:
+  desc: null
+  value: 0.001
+max_len:
+  desc: null
+  value: 50
+_wandb:
+  desc: null
+  value:
+    python_version: 3.11.4
+    cli_version: 0.15.12
+    framework: keras
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1702722570.453471
+    t:
+      1:
+      - 2
+      - 3
+      - 5
+      - 53
+      - 55
+      2:
+      - 2
+      - 3
+      - 5
+      - 53
+      - 55
+      3:
+      - 2
+      - 23
+      - 37
+      4: 3.11.4
+      5: 0.15.12
+      8:
+      - 3
+      - 5
+      13: windows-amd64

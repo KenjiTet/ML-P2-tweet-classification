@@ -1,0 +1,53 @@
+WARNING:tensorflow:From C:\Users\kenji\miniconda3\Lib\site-packages\keras\src\backend.py:873: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
+WARNING:tensorflow:From C:\Users\kenji\miniconda3\Lib\site-packages\keras\src\utils\tf_utils.py:492: The name tf.ragged.RaggedTensorValue is deprecated. Please use tf.compat.v1.ragged.RaggedTensorValue instead.
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ embedding (Embedding)       (None, 50, 100)           2016000
+ masking (Masking)           (None, 50, 100)           0
+ bidirectional (Bidirection  (None, 64)                34048
+ al)
+ dense (Dense)               (None, 32)                2080
+ dropout (Dropout)           (None, 32)                0
+ dense_1 (Dense)             (None, 1)                 33
+=================================================================
+Total params: 2052161 (7.83 MB)
+Trainable params: 36161 (141.25 KB)
+Non-trainable params: 2016000 (7.69 MB)
+_________________________________________________________________
+None
+Epoch 1/6
+WARNING:tensorflow:From C:\Users\kenji\miniconda3\Lib\site-packages\keras\src\engine\base_layer_utils.py:384: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
+
+
+
+128/128 [==============================] - 13s 67ms/step - loss: 0.5989 - accuracy: 0.6541 - val_loss: 0.5396 - val_accuracy: 0.7123
+Epoch 2/6
+
+
+
+128/128 [==============================] - 8s 63ms/step - loss: 0.5096 - accuracy: 0.7357 - val_loss: 0.4710 - val_accuracy: 0.7691
+Epoch 3/6
+
+
+
+128/128 [==============================] - 8s 62ms/step - loss: 0.4655 - accuracy: 0.7745 - val_loss: 0.4462 - val_accuracy: 0.7796
+Epoch 4/6
+
+
+
+
+128/128 [==============================] - 9s 71ms/step - loss: 0.4421 - accuracy: 0.7848 - val_loss: 0.4448 - val_accuracy: 0.7749
+Epoch 5/6
+
+
+
+128/128 [==============================] - 10s 74ms/step - loss: 0.4227 - accuracy: 0.7986 - val_loss: 0.4396 - val_accuracy: 0.7749
+Epoch 6/6
+
+
+
+
+128/128 [==============================] - 10s 75ms/step - loss: 0.4064 - accuracy: 0.8091 - val_loss: 0.4328 - val_accuracy: 0.7773
+29/29 [==============================] - 0s 7ms/step - loss: 0.4189 - accuracy: 0.7996

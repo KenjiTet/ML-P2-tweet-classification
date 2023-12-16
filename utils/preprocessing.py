@@ -228,9 +228,19 @@ def train_test_cleaner(size):
          neg_path = 'twitter-datasets/train_neg_full.txt'
          pos_path = 'twitter-datasets/train_pos_full.txt'
 
+    elif size == "medium":
+         neg_path = 'twitter-datasets/train_neg.txt'
+         pos_path = 'twitter-datasets/train_pos.txt'  
+
+    elif size == "finetune":
+         neg_path = 'twitter-datasets/train_neg_finetune.txt'
+         pos_path = 'twitter-datasets/train_pos_finetune.txt'  
+
     else:
          neg_path = 'twitter-datasets/small_neg.txt'
          pos_path = 'twitter-datasets/small_pos.txt'
+
+    
 
     """Clean train set and test set and return cleaned dataframes"""
 

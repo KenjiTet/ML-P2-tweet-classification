@@ -1,0 +1,18 @@
+wandb_version: 1
+
+batch_size:
+  value: 256
+dim:
+  value: 100
+dropout_rate:
+  value: 0.2
+hidden_units:
+  value: 64
+lr:
+  value: 0.0005
+lstm_layers:
+  value: 1
+max_len:
+  value: 50
+recurrent_dropout_rate:
+  value: 0.2

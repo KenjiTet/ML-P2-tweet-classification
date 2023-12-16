@@ -1,0 +1,24 @@
+wandb_version: 1
+
+batch_size:
+  value: 64
+dim:
+  value: 100
+dropout_rate:
+  value: 0.2
+filters_list:
+  value:
+  - 64
+  - 128
+  - 256
+  - 512
+kernel_sizes:
+  value:
+  - 3
+  - 3
+  - 3
+  - 3
+lr:
+  value: 0.001
+max_len:
+  value: 100

@@ -1,0 +1,45 @@
+{
+    "os": "Windows-10-10.0.22621-SP0",
+    "python": "3.11.4",
+    "heartbeatAt": "2023-12-16T09:10:59.596515",
+    "startedAt": "2023-12-16T09:10:58.335926",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:\\Users\\kenji\\OneDrive\\Documents\\EPFL\\MA3\\ML\\Project 2\\ML-P2-tweet-classification\\neural_networks\\finetune.py",
+    "codePathLocal": "neural_networks\\finetune.py",
+    "codePath": "neural_networks\\finetune.py",
+    "git": {
+        "remote": "https://github.com/KenjiTet/ML-P2-tweet-classification.git",
+        "commit": "8179f47c1eba529c3615178f4ec9d3f10c1d4ada"
+    },
+    "email": "kenji.tetard@epfl.ch",
+    "root": "C:/Users/kenji/OneDrive/Documents/EPFL/MA3/ML/Project 2/ML-P2-tweet-classification",
+    "host": "Kenji",
+    "username": "kenji",
+    "executable": "C:\\Users\\kenji\\miniconda3\\python.exe",
+    "cpu_count": 10,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 1733.0,
+        "min": 0.0,
+        "max": 2600.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 1733.0,
+            "min": 0.0,
+            "max": 2600.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 475.54394149780273,
+            "used": 123.72562026977539
+        }
+    },
+    "memory": {
+        "total": 15.828418731689453
+    }
+}

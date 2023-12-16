@@ -1,0 +1,8 @@
+wandb_version: 1
+
+batch_size:
+  value: 128
+dim:
+  value: 100
+max_len:
+  value: 50

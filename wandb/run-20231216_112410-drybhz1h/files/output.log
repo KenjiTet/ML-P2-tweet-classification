@@ -1,0 +1,2 @@
+
+WARNING:tensorflow:From C:\Users\kenji\miniconda3\Lib\site-packages\keras\src\backend.py:873: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.

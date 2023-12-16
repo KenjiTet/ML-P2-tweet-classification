@@ -1,0 +1,6 @@
+wandb_version: 1
+
+? "\n        'max_len': {\n            'values': [50]\n        },batch_size"
+: value: 128
+dim:
+  value: 200

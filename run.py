@@ -7,6 +7,9 @@ def train_model(model_type, size):
     X_train, X_test, y_train, y_test, vocab_size, tokenizer, embedding_matrix, max_len = prepare_data(size)
     if model_type == "simple_nn":
         simple_nn(X_train, y_train, X_test, y_test, vocab_size, embedding_matrix, max_len)
+    
+    if model_type == "cnn":
+        cnn(X_train, y_train, X_test, y_test, vocab_size, embedding_matrix, max_len, first_dropout=0.4)
 
 
 def eval_model(model_type, size):
@@ -19,6 +22,7 @@ def eval_model(model_type, size):
 
 def main():
 
+    #python run.py --mode train --model_type simple_nn --size small
     #python run.py --mode train --model_type simple_nn --size small
     #python run.py --mode eval --model_type simple_nn --size small
     

@@ -100,7 +100,29 @@ def prepare_data(size):
 
 
 
-def tok_and_pad(df,maxlen, tokenizer):
+def prepare_data_finetune(size, embedding_dim, max_len):
+    df_tweet = pd.read_pickle(f"resources/tweet_{size}.pkl")
+    df_tweet = df_tweet.sample(frac=1, random_state=1).reset_index(drop=True)
+    
+    X_train, X_test, y_train, y_test = train_test_split(df_tweet['tweet'], df_tweet['label'], test_size=0.05, random_state=42)
+
+    tokenizer = Tokenizer(num_words=100000)
+    tokenizer.fit_on_texts(X_train)
+
+    vocab_size = len(tokenizer.word_index) + 1
+
+
+
+    embedding_matrix = create_embedding_matrix(vocab_size, tokenizer, embedding_dim)
+
+
+    X_train, X_test = tok_and_pad(X_train, max_len, tokenizer), tok_and_pad(X_test, max_len, tokenizer)
+
+    return X_train, X_test, y_train, y_test, vocab_size, tokenizer, embedding_matrix, max_len, embedding_dim
+
+
+
+def tok_and_pad(df, maxlen, tokenizer):
     """ 
     Tokenizes and pads to maxlen each tweet
     """
@@ -110,14 +132,16 @@ def tok_and_pad(df,maxlen, tokenizer):
 
     return df
 
-def create_embedding_matrix(vocab_size, tokenizer, size):
+
+def create_embedding_matrix(vocab_size, tokenizer, embedding_dim):
     """
     Creates the embedding matrix from the file that contains the pre-computed embedding vectors
     """
     
     #open file
     embeddings_dictionary = dict()
-    glove_file = open(f'resources/trained_w2v_embeddings_{size}.txt', encoding="utf8")
+    #glove_file = open(f'resources/trained_w2v_embeddings_{size}.txt', encoding="utf8")
+    glove_file = open(f'resources/trained_w2v_embeddings_full_{embedding_dim}.txt', encoding="utf8")
     for line in glove_file:
         records = line.split()
         word = records[0]
@@ -126,12 +150,13 @@ def create_embedding_matrix(vocab_size, tokenizer, size):
     glove_file.close()
     
     #create matrix
-    embedding_matrix = zeros((vocab_size, 200))
+    embedding_matrix = zeros((vocab_size, embedding_dim))
     for word, index in tokenizer.word_index.items():
         embedding_vector = embeddings_dictionary.get(word)
         if embedding_vector is not None:
             embedding_matrix[index] = embedding_vector    
     return embedding_matrix
+
 
 
 def compute_predictions_nn(to_predict, threshold, model, tokenizer, maxlen):

@@ -6,8 +6,8 @@ import pickle
 
 def main():
 
-    input_file_path1 = "twitter-datasets/prep_small_pos.txt"
-    input_file_path2 = "twitter-datasets/prep_small_neg.txt"
+    input_file_path1 = 'twitter-datasets/prep_train_neg_full.txt'
+    input_file_path2 = 'twitter-datasets/prep_train_pos_full.txt'
 
     with open("resources/vocab.pkl", "rb") as f:
         vocab = pickle.load(f)
