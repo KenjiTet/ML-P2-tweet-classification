@@ -1,6 +1,3 @@
-
-#Keras import
-
 from keras.models import Sequential
 from keras.layers import Activation, Dropout, Dense, Masking
 from keras.layers import Flatten
@@ -9,10 +6,9 @@ from keras.layers import LSTM,Bidirectional
 from keras.layers import Embedding
 from nn_utils import*
 from keras.optimizers import Adam
+from keras.layers import Conv1D
 
 
-BATCH_SIZE = 1024
-DIM = 200
 EPOCHS = 6
 VALIDATION_SPLIT = 0.05
 VERBOSE = 1
@@ -46,7 +42,6 @@ def finetune_simple_nn(X_train, y_train, X_test, y_test, vocab_size, embedding_m
 
 
     return model, current_score
-
 
 
 

@@ -222,6 +222,13 @@ def preprocess_tweets(size):
         pickle.dump(train_set, f)  
 
 
+def preprocess_tweets_to_predict():
+    _, to_predict = train_test_cleaner(size="small")
+
+    with open(f"resources/tweet_to_predict.pkl", "wb") as f:
+        pickle.dump(to_predict, f)  
+
+
 def train_test_cleaner(size):
 
     if size == "full":

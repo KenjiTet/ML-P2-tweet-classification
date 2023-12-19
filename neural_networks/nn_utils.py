@@ -1,42 +1,26 @@
 
-from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
-
 import pandas as pd
-import numpy as np
-import re
-import nltk
-from nltk.corpus import stopwords
-
-from numpy import array
-from keras.preprocessing.text import one_hot
 from keras.preprocessing.sequence import pad_sequences
-from keras.models import Sequential
-from keras.layers import Activation, Dropout, Dense
-from keras.layers import Flatten
-from keras.layers import GlobalMaxPooling1D,MaxPooling1D,GRU
-from keras.layers import Conv1D
-from keras.layers import LSTM
-from keras.layers import Embedding
+
 from sklearn.model_selection import train_test_split
 from keras.preprocessing.text import Tokenizer
 
 from numpy import asarray
 from numpy import zeros
 
-import matplotlib.pyplot as plt
 
 from keras.models import load_model
 import os
 
 
 
-def save_model_if_better(model, model_type, score, current_best_score):
+def save_model_if_better(size, model, model_type, score, current_best_score):
     """
     Save the model if it achieves better score than the current best.
     """
     model_folder = 'neural_networks/best_models_saved'
-    model_path = os.path.join(model_folder, f'best_{model_type}.h5')
+    model_path = os.path.join(model_folder, f'best_{model_type}_{size}.h5')
 
     if score > current_best_score:
         if not os.path.exists(model_folder):
@@ -50,30 +34,40 @@ def evaluate_model(model, X_test, y_test):
     """
     Evaluate the model and return its score.
     """
-    score = model.evaluate(X_test, y_test, verbose=0)
-    print("Test Score:", score[0])
-    print("Test Accuracy:", score[1])    
-    return score[1]  
+    if model is None:
+        print("No model to evaluate")
+        return 0
+    else:
+        score = model.evaluate(X_test, y_test, verbose=1)
+        print("Test Score:", score[0])
+        print("Test Accuracy:", score[1])    
+        return score[1]  
 
 
 def evaluate_best_model(model_type, model, X_test, y_test):
     """
     Evaluate the model and return its score.
     """
-    score = model.evaluate(X_test, y_test, verbose=0)
-    print(f"=== Metrics of the best {model_type} ===")
-    print("Test Score:", score[0])
-    print("Test Accuracy:", score[1])    
-    return score[1]  
+    if model is None:
+        print("No model to evaluate")
+        return 0
+    else:
+        score = model.evaluate(X_test, y_test, verbose=0)
+        print(f"=== Metrics of the best {model_type} ===")
+        print("Test Score:", score[0])
+        print("Test Accuracy:", score[1])    
+        return score[1]  
 
-def load_best_model(model_type):
+
+def load_best_model(model_type, size):
     """
     Load and return the best saved model of a given type.
     """
-    model_path = os.path.join('neural_networks/best_models_saved', f'best_{model_type}.h5')
+    model_path = os.path.join('neural_networks/best_models_saved', f'best_{model_type}_{size}.h5')
     if os.path.exists(model_path):
         return load_model(model_path)
     else:
+        print(f"No such model exist: python run.py --mode train model_type {model_type} --size {size}")
         return None
     
 
@@ -88,13 +82,10 @@ def prepare_data(size):
 
     vocab_size = len(tokenizer.word_index) + 1
 
-
-
     embedding_matrix = create_embedding_matrix(vocab_size, tokenizer, size)
 
-
     max_len = 100
-    X_train, X_test = tok_and_pad(X_train,max_len,tokenizer), tok_and_pad(X_test,max_len,tokenizer)
+    X_train, X_test = tok_and_pad(X_train, max_len, tokenizer), tok_and_pad(X_test, max_len, tokenizer)
 
     return X_train, X_test, y_train, y_test, vocab_size, tokenizer, embedding_matrix, max_len
 
@@ -113,12 +104,14 @@ def prepare_data_finetune(size, embedding_dim, max_len):
 
 
 
-    embedding_matrix = create_embedding_matrix(vocab_size, tokenizer, embedding_dim)
+    embedding_matrix = create_embedding_matrix(vocab_size, tokenizer, embedding_dim, size)
+    #embedding_matrix = create_embedding_matrix(vocab_size, tokenizer, embedding_dim)
 
 
     X_train, X_test = tok_and_pad(X_train, max_len, tokenizer), tok_and_pad(X_test, max_len, tokenizer)
 
     return X_train, X_test, y_train, y_test, vocab_size, tokenizer, embedding_matrix, max_len, embedding_dim
+
 
 
 
@@ -133,15 +126,17 @@ def tok_and_pad(df, maxlen, tokenizer):
     return df
 
 
-def create_embedding_matrix(vocab_size, tokenizer, embedding_dim):
+def create_embedding_matrix(vocab_size, tokenizer, embedding_dim, size):
+#def create_embedding_matrix(vocab_size, tokenizer, embedding_dim):
     """
     Creates the embedding matrix from the file that contains the pre-computed embedding vectors
     """
     
     #open file
     embeddings_dictionary = dict()
-    #glove_file = open(f'resources/trained_w2v_embeddings_{size}.txt', encoding="utf8")
-    glove_file = open(f'resources/trained_w2v_embeddings_full_{embedding_dim}.txt', encoding="utf8")
+    glove_file = open(f'resources/trained_w2v_embeddings_{size}_{embedding_dim}.txt', encoding="utf8")
+    #glove_file = open(f'resources/trained_w2v_embeddings_finetune_{embedding_dim}.txt', encoding="utf8")
+
     for line in glove_file:
         records = line.split()
         word = records[0]
@@ -150,6 +145,7 @@ def create_embedding_matrix(vocab_size, tokenizer, embedding_dim):
     glove_file.close()
     
     #create matrix
+    #embedding_dim = 200
     embedding_matrix = zeros((vocab_size, embedding_dim))
     for word, index in tokenizer.word_index.items():
         embedding_vector = embeddings_dictionary.get(word)

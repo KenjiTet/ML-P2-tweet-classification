@@ -34,6 +34,7 @@ def train_nn():
     filters_list = run.config.filters_list
     kernel_sizes = run.config.kernel_sizes
     
+
     
     X_train, X_test, y_train, y_test, vocab_size, tokenizer, embedding_matrix, max_len, dim = prepare_data_finetune("finetune", dim, max_len)
     
@@ -118,7 +119,7 @@ def train_rnn_gru():
 
 
 
-sweep_config_cnn = {
+sweep_config_simple_cnn = {
     'method': 'grid',
     'metric': {
       'name': 'Test_accuracy',
@@ -183,13 +184,13 @@ sweep_config_rnn_lstm = {
     },
     'parameters': {
         'dim': {
-            'values': [100, 200]
+            'values': [200]
         },
         'max_len': {
-            'values': [50, 100]
+            'values': [50]
         },
         'batch_size': {
-            'values': [256, 512]
+            'values': [512]
         },
         'lr': {
             'values': [0.0005, 0.0001]
@@ -231,7 +232,7 @@ sweep_config_rnn_gru = {
         'hidden_units': {
             'values': [64, 128]
         },
-        'lstm_layers': {
+        'gru_layers': {
             'values': [1, 2]
         },
         'dropout_rate': {
@@ -248,7 +249,7 @@ sweep_config_rnn_gru = {
 
 def main():
     
-
+    """
     sweep_id = wandb.sweep(sweep_config_cnn, project="ML tweet train_nn")
     wandb.agent(sweep_id, function=lambda: train_nn())
 
@@ -259,7 +260,11 @@ def main():
     wandb.agent(sweep_id, function=lambda: train_rnn_bi_lstm())
 
     sweep_id = wandb.sweep(sweep_config_rnn_gru, project="ML tweet train_rnn_gru")
-    wandb.agent(sweep_id, function=lambda: train_rnn_gru())
+    wandb.agent(sweep_id, function=lambda: train_rnn_gru())"""
+
+
+    sweep_id = wandb.sweep(sweep_config_simple_cnn, project="ML tweet train_simple_nn")
+    wandb.agent(sweep_id, function=lambda: train_simple_nn())
 
 
    
