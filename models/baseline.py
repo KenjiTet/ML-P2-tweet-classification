@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn import metrics
 from sklearn.naive_bayes import MultinomialNB
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 
 import sys
@@ -13,10 +14,8 @@ current_dir = os.path.dirname(__file__)
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
-# Now you can import from 'utils'
-from utils.preprocessing import*  # Replace 'some_function' with the actual function/class name you want to import
+from utils.preprocessing import*  
 
-# rest of your baseline.py code
 
 
 SEED = 12345
@@ -36,15 +35,10 @@ def baseline(x_train,y_train,x_validation,y_validation):
 
 if __name__ == "__main__":
 	
+	df_tweet = pd.read_pickle(f"resources/tweet_full.pkl")
+	df_tweet = df_tweet.sample(frac=1, random_state=1).reset_index(drop=True)
 	
-	#Clean training set and test set
-	train_set, test_set = train_test_cleaner()
-
-	#Split into training set and validation set
-	x = train_set.tweet
-	y = train_set.label
-	x_train, x_validation, y_train, y_validation = train_test_split(x, y, test_size=.3, random_state=SEED)
-	
+	X_train, X_test, y_train, y_test = train_test_split(df_tweet['tweet'], df_tweet['label'], test_size=0.2, random_state=42)
 	#Train the model selected and print accuracy on validation set
-	baseline(x_train,y_train,x_validation,y_validation)
+	baseline(X_train,y_train,X_test,y_test)
 	
