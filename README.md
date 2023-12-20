@@ -2,38 +2,53 @@
 ```
 ML-P2-Tweet-classification/
 |
+├── embeddings/
+│   └── embedding_training.py
+|
+├── models/
+│   ├── baseline.py
+│   ├── bayes.py
+│   ├── log_reg.py
+│   ├── sgd.py
+│   ├── SVC.py
+│   └── model_utils.py
+|
+├── neural_networks/
+│   ├── best_models_saved/
+|   |   └── best_{model_type}_{size}.h5
+│   ├── cnn.py
+│   ├── finetune.py
+│   ├── models_for_finetune.py
+│   ├── nn_utils.py
+│   └── rnn.py
+|
+├── notebooks/
+│   └── EDA.ipynb
+|
+├── predictions/
+│   ├── final_pred/
+|   |   └── majority_vote_preds.csv
+│   └── pred_{model_type}.csv
+|
+├── resources/
+│   ├── trained_w2v_embeddings_{size}_{dim}.txt
+│   └── tweet_{size}.pkl
+|
 ├── twitter-datasets/
 │   ├── train_neg_full.txt 
 │   ├── train_neg.txt 
 │   ├── train_pos_full.txt
 │   ├── train_pos.txt
+│   ├── small_neg.txt
+│   ├── small_pos.txt
 │   └── test_data.txt
 |
-├── resources/
-│   ├── vocab_full.txt
-│   ├── vocab_cut.txt
-│   ├── vocab.pkl
-│   ├── embeddings.npy
-│   └── cooc.pkl
-|
-├── embeddings/
-│   ├── pickle_vocab.py
-│   ├── cooc.py
-│   ├── glove_template.py
-│   ├── glove_solution.py
-│   └── build_vocab.py
-|
-├── utils/
-│   ├── loads.py
-│   ├── preprocessing.py
-│   └── feature_extraction.py
-|
-├── notebooks/
-│   └── EDA.ipynb
-|
-├── run.py
+├── preprocessing.py
 ├── requirements.txt
-└── README.md
+├── README.md
+├── run.py
+├── setup.py
+└── train_eval.py
 ```
 
 
@@ -48,19 +63,52 @@ Before running this project, ensure you have the following installed:
 - Python 3.x
 - pip (Python package installer)
 
-
-## Running the Project
-To run the tweet classification project, follow these steps:
-
-1. **Install requirements**
+**Install requirements**
 run the following: 
 pip install -r requirements.txt
 
-2.**Run the preprocessing file**
-To generate the corrects preprocessed tweets datatset, run the `preprocessing.py` file
-python preprocessing.py
+## Train embedding and create the tweets.pkl
+To be able to train and evaluate the different models, you will first need to run the setup.py file.
+This file will create the desired resources in the resources folder, that are the learned embedding and the tweet.pkl
 
-2. **Execute the Main Script:**
-Run the `run.py` script from the project's root directory: 
-python run.py
+run the following command : python setup.py --size <size> --dim <dim>
 
+The possible sizes are : full, medium or small
+The possible dims are : 200 or 100
+
+exemple : python setup.py --size small --dim 200
+
+The resulting files should be created :
+```
+├── resources/
+│   ├── trained_w2v_embeddings_{size}_{dim}.txt
+│   └── tweet_{size}.pkl
+```
+
+
+## Train and evaluate the models
+Once the resources successfully created you can use the train_eval.py to train or evaluate the desired neural network model. Running this file will automatically save the trained model if it achieved a better accuracy than the previous saved model of the same type.
+
+To train:
+run the following command : python train_eval.py --mode train --model_type <model_type> --size <size>
+
+To evaluate:
+run the following command : python train_eval.py --mode eval --model_type <model_type> --size <size>
+
+The possible sizes are : full, medium or small
+The possible model_type are : simple_nn, cnn, lstm, bi-lstm, gru
+
+example: python train_eval.py --mode train --model_type simple_nn --size small
+
+**Important**
+Before selecting the size you must have ran the setup.py file using the same size
+
+
+## Creating the final submission file
+Once all the models have been trained using the size full, simply run the run.py file to create the final
+majority_vote_preds.csv
+```
+├── predictions/
+│   ├── final_pred/
+|   |   └── majority_vote_preds.csv
+```

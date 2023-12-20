@@ -2,3 +2,12 @@ pandas
 numpy
 scikit-learn
 regex
+nltk
+gensim
+scikit-learn
+keras
+wandb
+matplotlib
+glob
+regex
+pickle
