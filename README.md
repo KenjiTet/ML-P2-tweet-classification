@@ -86,7 +86,7 @@ The resulting files should be created :
 ```
 
 
-##Train and evaluate the models
+## Train and evaluate the models
 Once the resources successfully created you can use the train_eval.py to train or evaluate the desired neural network model. Running this file will automatically save the trained model if it achieved a better accuracy than the previous saved model of the same type.
 
 To train:
