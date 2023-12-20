@@ -189,7 +189,7 @@ def preprocess_tweets(size):
 
     train_set, _ = clean_train_test(size)
 
-    with open(f"resources/tweet_{size}_test.pkl", "wb") as f:
+    with open(f"resources/tweet_{size}.pkl", "wb") as f:
         pickle.dump(train_set, f)  
 
 
