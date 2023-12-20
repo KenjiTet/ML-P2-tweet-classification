@@ -79,9 +79,11 @@ The possible dims are : 200 or 100
 exemple : python setup.py --size small --dim 200
 
 The resulting files should be created :
+```
 ├── resources/
 │   ├── trained_w2v_embeddings_{size}_{dim}.txt
 │   └── tweet_{size}.pkl
+```
 
 
 ##Train and evaluate the models
@@ -105,7 +107,8 @@ Before selecting the size you must have ran the setup.py file using the same siz
 ## Creating the final submission file
 Once all the models have been trained using the size full, simply run the run.py file to create the final
 majority_vote_preds.csv
-
+```
 ├── predictions/
 │   ├── final_pred/
 |   |   └── majority_vote_preds.csv
+```
