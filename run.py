@@ -1,71 +1,82 @@
-from neural_networks.nn_utils import*
-from neural_networks.cnn import*
-from neural_networks.rnn import*
+import csv
+import glob
 import argparse
+import numpy as np
+
+from preprocessing import*
+from neural_networks.nn_utils import*
+from embeddings.embedding_training import*
 
 
 
-def train_model(model_type, size):
+NUM_PREDICTION_ROWS = 10000
 
-    if model_type == "simple_nn":
-        max_len = 100
-        embedding_dim = 200
-        X_train, X_test, y_train, y_test, vocab_size, _, embedding_matrix, _, _ = prepare_data_finetune(size, embedding_dim, max_len)
-        simple_nn(size, X_train, y_train, X_test, y_test, vocab_size, embedding_matrix, max_len, dim=embedding_dim, lr=0.001)
+
+def majority_voting():
+    """
+    Performs majority voting on prediction files and creates a final submission file.
+
+    The function reads prediction CSV files from a specified directory, aggregates the predictions by majority voting,
+    and then creates a final CSV file with the aggregated predictions.
+    """
+
+    pred_files = glob.glob('predictions/*.csv')
+    predictions = np.zeros((NUM_PREDICTION_ROWS, 2))
     
-    if model_type == "cnn":
-        max_len = 100
-        embedding_dim = 200
-        X_train, X_test, y_train, y_test, vocab_size, _, embedding_matrix, _, _ = prepare_data_finetune(size, embedding_dim, max_len)
-        cnn(size, X_train, y_train, X_test, y_test, vocab_size, embedding_matrix, max_len, dim=embedding_dim, dropout_rate= 0.5, filters_list=[64,128,256,512], kernel_sizes= [5,5,5,5], lr = 0.001)
+    for file in pred_files:
+        with open(file, 'r') as f:
+            lines = f.readlines()[1:]
+            current_preds = np.array([int(l.split(',')[1]) for l in lines])
+            current_preds[current_preds < 0] = 0
+            predictions[range(NUM_PREDICTION_ROWS), current_preds] += 1
 
-    if model_type == "lstm":
-        max_len = 50
-        embedding_dim = 200
-        X_train, X_test, y_train, y_test, vocab_size, _, embedding_matrix, _, _ = prepare_data_finetune(size, embedding_dim, max_len)
-        rnn_lstm(size, X_train, y_train, X_test, y_test, vocab_size, embedding_matrix, max_len, dim=embedding_dim, lr= 0.0005, hidden_units= 128, lstm_layers= 2, dropout_rate= 0.2, recurrent_dropout_rate= 0.5)
+    predictions = np.argmax(predictions, axis=1)
+    predictions[predictions < 1 ] = -1
 
-    if model_type == "bi-lstm":
-        max_len = 100
-        embedding_dim = 200
-        X_train, X_test, y_train, y_test, vocab_size, _, embedding_matrix, _, _ = prepare_data_finetune(size, embedding_dim, max_len)
-        rnn_bi_lstm(size, X_train, y_train, X_test, y_test, vocab_size, embedding_matrix, max_len, dim=embedding_dim, lr=0.0005, hidden_units=128, bi_lstm_layers=2, dropout_rate=0.2, recurrent_dropout_rate=0.5)
+    create_csv_submission(predictions, 'predictions/final_pred/majority_vote_preds_with_basics.csv')
 
-    if model_type == "gru":
-        max_len = 100
-        embedding_dim = 200
-        X_train, X_test, y_train, y_test, vocab_size, _, embedding_matrix, _, _ = prepare_data_finetune(size, embedding_dim, max_len)
-        rnn_gru(size, X_train, y_train, X_test, y_test, vocab_size, embedding_matrix, max_len, dim=embedding_dim, lr=0.0005, hidden_units=64, gru_layers=2, dropout_rate=0.2)
-
-
-def eval_model(model_type, size):
-    best_model = load_best_model(model_type, size)
-    _, X_test, _, y_test, _, _, _, _, _ = prepare_data_finetune(size, 200, 100)
-
-    evaluate_best_model(model_type, best_model, X_test, y_test)
+    return 0
 
 
 
+def create_csv_submission(y_pred, path):
 
-def main():
+    ids=[i for i in range(1, len(y_pred)+1)]
+    with open(path, 'w', newline='') as csvfile:
+        fieldnames = ['Id', 'Prediction']
+        writer = csv.DictWriter(csvfile, delimiter=",", fieldnames=fieldnames)
+        writer.writeheader()
+        for r1, r2 in zip(ids, y_pred):
+            writer.writerow({'Id':int(r1),'Prediction':int(r2)})
 
-    #python run.py --mode train --model_type simple_nn --size small
-    #python run.py --mode train --model_type simple_nn --size small
-    #python run.py --mode eval --model_type simple_nn --size small
-    
-    parser = argparse.ArgumentParser(description='Train or Evaluate a Model')
-    parser.add_argument('--mode', type=str, required=True, help='Mode to run: "train" or "eval"')
-    parser.add_argument('--model_type', type=str, required=True, help='Type of model: e.g., "simple_nn"')
-    parser.add_argument('--size', type=str, required=True, help='size of dataset : "small" or "full"')
 
-    args = parser.parse_args()
-
-    if args.mode == "train":
-        train_model(args.model_type, args.size)
-    elif args.mode == "eval":
-        eval_model(args.model_type, args.size)
-    else:
-        raise ValueError("Invalid mode. Choose 'train' or 'eval'.")
 
 if __name__ == '__main__':
-    main()
+
+    parser = argparse.ArgumentParser(description='Precise the size of the dataset on which the models where trained')
+    parser.add_argument('--size', type=str, required=True, help='Mode to run: "full", "medium" or "small"')
+    
+    args = parser.parse_args()
+
+    best_nn = load_best_model("simple_nn", args.size)
+    #best_cnn = load_best_model("cnn", args.size)
+    best_lstm = load_best_model("rnn_lstm", args.size)
+    #best_bi_lstm = load_best_model("rnn_bi_lstm", args.size)
+    best_gru = load_best_model("rnn_gru", args.size)
+
+    to_predict = preprocess_tweets_to_predict()
+    _, _, _, _, _, tokenizer, _, _, _ = prepare_data("full", 200, 100)
+
+    pred_nn = compute_predictions_nn(to_predict, best_nn, tokenizer, maxlen=100)
+    #pred_cnn = compute_predictions_nn(to_predict, best_cnn, tokenizer, maxlen=100)
+    pred_lstm = compute_predictions_nn(to_predict, best_lstm, tokenizer, maxlen=50)
+    #pred_bi_lstm = compute_predictions_nn(to_predict, best_bi_lstm, tokenizer, maxlen=100)
+    pred_gru = compute_predictions_nn(to_predict, best_gru, tokenizer, maxlen=100)
+
+    create_csv_submission(pred_nn, "predictions/pred_nn.csv")
+    #create_csv_submission(pred_cnn, "predictions/cnn_pred.csv")
+    create_csv_submission(pred_lstm, "predictions/pred_lstm.csv")
+    #create_csv_submission(pred_bi_lstm, "predictions/pred_bi_lstm.csv")
+    create_csv_submission(pred_gru, "predictions/pred_gru.csv")
+
+    majority_voting()

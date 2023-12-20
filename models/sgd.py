@@ -20,35 +20,42 @@ sys.path.append(parent_dir)
 
 
 # Now you can import from 'utils'
-from utils.preprocessing import*
+from preprocessing import*
 
 SEED = 12345
 
 
-def sgd_model(x_train,y_train,x_validation,y_validation, test_set):
-	"""Trains a Stochastic Gradient Descent Classifier on tfidf data and prints accuracy"""
-	x_train_tfidf,x_validation_tfidf, X_pred = prepare_tfidf(x_train,y_train,x_validation,y_validation, test_set)
-	clf = SGDClassifier(tol=1e-3, loss='modified_huber').fit(x_train_tfidf, y_train)
-	y_predicted = clf.predict(x_validation_tfidf)
+def sgd_model(x_train, y_train, x_validation, y_validation, test_set):
+	"""
+    Trains a Stochastic Gradient Descent (SGD) Classifier on TF-IDF transformed text data, evaluates its accuracy on a 
+    validation set, and makes predictions on a test set.
+
+    The function first transforms the input text data into TF-IDF vectors, then trains an SGD Classifier with 
+    'modified_huber' loss, evaluates its performance on the validation set, and finally uses the trained model to make 
+    predictions on the test set.
+
+    Returns:
+    y_sub (array-like): Predicted labels for the test set.
+    """	
+	x_train, x_validation, X_pred = prepare_tfidf(x_train, x_validation, test_set)
+	clf = SGDClassifier(tol=1e-3, loss='modified_huber').fit(x_train, y_train)
+	y_predicted = clf.predict(x_validation)
 	print(f'SGD classifier accuracy on validation set is {metrics.accuracy_score(y_validation, y_predicted)}')
-	y_subm = clf.predict(X_pred)
-	return y_subm
+	y_sub = clf.predict(X_pred)
+	return y_sub
+
 
 if __name__ == "__main__":
 	
 	
-	#Clean training set and test set
-	train_set, test_set = train_test_cleaner()
+	df_tweet = pd.read_pickle(f"resources/tweet_full.pkl")
+	df_tweet = df_tweet.sample(frac=1, random_state=1).reset_index(drop=True)
+	test_set = preprocess_tweets_to_predict()
 
-	#Split into training set and validation set
-	x = train_set.tweet
-	y = train_set.label
-	x_train, x_validation, y_train, y_validation = train_test_split(x, y, test_size=.3, random_state=SEED)
+	X_train, X_test, y_train, y_test = train_test_split(df_tweet['tweet'], df_tweet['label'], test_size=0.2, random_state=42)
 	
-	
-	y_submission = sgd_model(x_train,y_train,x_validation,y_validation, test_set)
+	y_submission = sgd_model(X_train, y_train, X_test, y_test, test_set)
+	y_submission[y_submission == 0] = -1
 	ids=np.arange(1,len(y_submission)+1)
 
-	create_csv_submission(ids, y_submission, "models/Submissions/submission_sgd_model.csv")
-
-	
+	create_csv_submission(ids, y_submission, "predictions/pred_basic_sgd_full.csv")

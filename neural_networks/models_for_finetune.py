@@ -14,14 +14,14 @@ VALIDATION_SPLIT = 0.05
 VERBOSE = 1
 
 
+"""
+All the functions defined here are equivalent to the models in the files cnn.py and rnn.py, 
+except that they return the accuracy of the models to be logged in wandb and they do not save
+the models.
+"""
 
 def finetune_simple_nn(X_train, y_train, X_test, y_test, vocab_size, embedding_matrix, max_len, dim, batch_size, lr):
-    """
-    Create the model for a Simple Neural Net
-    OUTPUT:
-    Returns the model trained 
-    """
-    #Create model
+
     optimizer = Adam(learning_rate=lr)
 
     model = Sequential()
@@ -33,13 +33,11 @@ def finetune_simple_nn(X_train, y_train, X_test, y_test, vocab_size, embedding_m
     model.compile(optimizer = optimizer, loss='binary_crossentropy', metrics=['acc'])
 
     print(model.summary())
-    #Fit model
+
     model.fit(X_train, y_train, batch_size = batch_size, epochs = EPOCHS, verbose =  VERBOSE, validation_split = VALIDATION_SPLIT)
 
-    #Evaluate model
     score = model.evaluate(X_test, y_test, verbose = VERBOSE)
     current_score = score[1]
-
 
     return model, current_score
 
@@ -58,7 +56,7 @@ def finetune_cnn(X_train, y_train, X_test, y_test, vocab_size, embedding_matrix,
         model.add(Conv1D(filters, kernel_size, padding='valid', activation='relu', strides=1))
     
     model.add(Flatten())
-    model.add(Dense(max(filters_list)))  # Example: using the max number of filters as the size of the dense layer
+    model.add(Dense(max(filters_list)))  
     model.add(Dropout(dropout_rate))
     model.add(Activation('relu'))
     model.add(Dense(1, activation='sigmoid'))
@@ -81,7 +79,7 @@ def finetune_rnn_lstm(X_train, y_train, X_test, y_test, vocab_size, embedding_ma
     model.add(Masking(mask_value=0.0))
 
     for i in range(lstm_layers):
-        return_sequences = i < lstm_layers - 1  # Only the last layer should not return sequences
+        return_sequences = i < lstm_layers - 1  
         model.add(LSTM(hidden_units, return_sequences=return_sequences, dropout=dropout_rate, recurrent_dropout=recurrent_dropout_rate))
 
     model.add(Dense(hidden_units, activation='relu'))
@@ -132,7 +130,7 @@ def finetune_rnn_gru(X_train, y_train, X_test, y_test, vocab_size, embedding_mat
     model.add(Embedding(vocab_size, dim, weights=[embedding_matrix], input_length=maxlen, trainable=False))
 
     for i in range(gru_layers):
-        return_sequences = i < gru_layers - 1  # Only the last layer should not return sequences
+        return_sequences = i < gru_layers - 1  
         model.add(GRU(hidden_units, return_sequences=return_sequences, dropout=dropout_rate))
 
     model.add(Flatten())
