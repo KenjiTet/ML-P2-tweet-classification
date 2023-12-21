@@ -114,7 +114,8 @@ The BertSubmission.ipynb contains two code cells, the first one is used to train
 To evaluate:
 run the second code cell in BertSubmission.ipynb, this cell loads the model and generates a submission.csv file to evaluate the model's accuracy.
 
-Note: you might need to change the variable folder_path in order to adjust it to you own environment.
+**Note:**
+You may need to adjust the variable `folder_path` to match your own environment.
 
 ## Creating the final submission file
 Once all the models have been trained using the size full, simply run the run.py file to create the final
