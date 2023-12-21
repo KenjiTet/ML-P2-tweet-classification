@@ -103,6 +103,18 @@ example: python train_eval.py --mode train --model_type simple_nn --size small
 **Important**
 Before selecting the size you must have ran the setup.py file using the same size
 
+## Training and evaluating the BERT model
+The BERT model was specially designed to run on the notebook BertSubmission.ipynb.
+
+Because of the high computational requirement of this model, it was designed to run on google collab to take advantage of the added computational power from the GPU. So in order to run it, please load the notebook on your own collab environment.
+
+To train:
+The BertSubmission.ipynb contains two code cells, the first one is used to train the BERT model, after which it saves the model in a folder.
+
+To evaluate:
+run the second code cell in BertSubmission.ipynb, this cell loads the model and generates a submission.csv file to evaluate the model's accuracy.
+
+Note: you might need to change the variable folder_path in order to adjust it to you own environment.
 
 ## Creating the final submission file
 Once all the models have been trained using the size full, simply run the run.py file to create the final

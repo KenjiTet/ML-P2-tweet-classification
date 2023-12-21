@@ -11,3 +11,5 @@ matplotlib
 glob
 regex
 pickle
+torch
+transformers
