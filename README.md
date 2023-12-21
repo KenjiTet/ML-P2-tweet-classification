@@ -120,6 +120,7 @@ run the second code cell in BertSubmission.ipynb, this cell loads the model and 
 **Note:**
 You may need to adjust the variable `folder_path` to match your own environment.
 
+
 ## Creating the final submission file
 Once all the models have been trained using the size full, simply run the run.py file to create the final
 majority_vote_preds.csv

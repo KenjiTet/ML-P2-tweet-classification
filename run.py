@@ -1,6 +1,5 @@
 import csv
 import glob
-import argparse
 import numpy as np
 
 from preprocessing import*
@@ -33,7 +32,7 @@ def majority_voting():
     predictions = np.argmax(predictions, axis=1)
     predictions[predictions < 1 ] = -1
 
-    create_csv_submission(predictions, 'predictions/final_pred/majority_vote_preds_with_basics.csv')
+    create_csv_submission(predictions, 'predictions/final_pred/majority_vote_preds.csv')
 
     return 0
 
@@ -53,30 +52,24 @@ def create_csv_submission(y_pred, path):
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description='Precise the size of the dataset on which the models where trained')
-    parser.add_argument('--size', type=str, required=True, help='Mode to run: "full", "medium" or "small"')
-    
-    args = parser.parse_args()
+    size = "small"
 
-    best_nn = load_best_model("simple_nn", args.size)
-    #best_cnn = load_best_model("cnn", args.size)
-    best_lstm = load_best_model("rnn_lstm", args.size)
-    #best_bi_lstm = load_best_model("rnn_bi_lstm", args.size)
-    best_gru = load_best_model("rnn_gru", args.size)
+    best_cnn = load_best_model("cnn", size)
+    best_lstm = load_best_model("lstm", size)
+    best_bi_lstm = load_best_model("bi_lstm", size)
+    best_gru = load_best_model("gru", size)
 
     to_predict = preprocess_tweets_to_predict()
-    _, _, _, _, _, tokenizer, _, _, _ = prepare_data("full", 200, 100)
+    _, _, _, _, _, tokenizer, _, _, _ = prepare_data(size, 200, 100)
 
-    pred_nn = compute_predictions_nn(to_predict, best_nn, tokenizer, maxlen=100)
-    #pred_cnn = compute_predictions_nn(to_predict, best_cnn, tokenizer, maxlen=100)
+    pred_cnn = compute_predictions_nn(to_predict, best_cnn, tokenizer, maxlen=100)
     pred_lstm = compute_predictions_nn(to_predict, best_lstm, tokenizer, maxlen=50)
-    #pred_bi_lstm = compute_predictions_nn(to_predict, best_bi_lstm, tokenizer, maxlen=100)
+    pred_bi_lstm = compute_predictions_nn(to_predict, best_bi_lstm, tokenizer, maxlen=100)
     pred_gru = compute_predictions_nn(to_predict, best_gru, tokenizer, maxlen=100)
 
-    create_csv_submission(pred_nn, "predictions/pred_nn.csv")
-    #create_csv_submission(pred_cnn, "predictions/cnn_pred.csv")
+    create_csv_submission(pred_cnn, "predictions/pred_cnn.csv")
     create_csv_submission(pred_lstm, "predictions/pred_lstm.csv")
-    #create_csv_submission(pred_bi_lstm, "predictions/pred_bi_lstm.csv")
+    create_csv_submission(pred_bi_lstm, "predictions/pred_bi_lstm.csv")
     create_csv_submission(pred_gru, "predictions/pred_gru.csv")
 
     majority_voting()

@@ -25,7 +25,7 @@ def train_model(model_type, size):
         X_train, X_test, y_train, y_test, vocab_size, _, embedding_matrix, _, _ = prepare_data(size, embedding_dim, max_len)
         rnn_lstm(size, X_train, y_train, X_test, y_test, vocab_size, embedding_matrix, max_len, dim=embedding_dim, lr= 0.0005, hidden_units= 128, lstm_layers= 2, dropout_rate= 0.2, recurrent_dropout_rate= 0.5)
 
-    elif model_type == "bi-lstm":
+    elif model_type == "bi_lstm":
         max_len = 100
         embedding_dim = 200
         X_train, X_test, y_train, y_test, vocab_size, _, embedding_matrix, _, _ = prepare_data(size, embedding_dim, max_len)
@@ -57,15 +57,11 @@ def eval_model(model_type, size):
 
 
 def main():
-
-    #python train_eval.py --mode train --model_type simple_nn --size small
-    #python train_eval.py --mode train --model_type simple_nn --size small
-    #python train_eval.py --mode eval --model_type simple_nn --size small
     
     parser = argparse.ArgumentParser(description='Train or Evaluate a Model')
     parser.add_argument('--mode', type=str, required=True, help='Mode to run: "train" or "eval"')
     parser.add_argument('--model_type', type=str, required=True, help='Type of model: e.g., "simple_nn"')
-    parser.add_argument('--size', type=str, required=True, help='size of dataset : "small" or "full"')
+    parser.add_argument('--size', type=str, required=True, help='size of dataset : "small", "medium" or "full"')
 
     args = parser.parse_args()
 
