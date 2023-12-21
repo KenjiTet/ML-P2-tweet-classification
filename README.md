@@ -117,6 +117,8 @@ The BertSubmission.ipynb contains two code cells, the first one is used to train
 To evaluate:
 run the second code cell in BertSubmission.ipynb, this cell loads the model and generates a BertSubmission.csv file to evaluate the model's accuracy.
 
+Then manually transfer the BertSubmission.csv file in the predictions folder
+
 **Note:**
 You may need to adjust the variable `folder_path` to match your own environment.
 
@@ -129,3 +131,6 @@ majority_vote_preds.csv
 │   ├── final_pred/
 |   |   └── majority_vote_preds.csv
 ```
+
+**Important notice**
+By default, the submission.csv of the most performant models are already present on the predictions folder so to create the majority_vote using without having to train all the models, simply run the last line of the run.py.
