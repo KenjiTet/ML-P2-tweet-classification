@@ -109,13 +109,13 @@ Before selecting the size you must have ran the setup.py file using the same siz
 ## Training and evaluating the BERT model
 The BERT model was specially designed to run on the notebook BertSubmission.ipynb.
 
-Because of the high computational requirement of this model, it was designed to run on google collab to take advantage of the added computational power from the GPU. So in order to run it, please load the notebook on your own collab environment.
+Because of the high computational requirement of this model, it was designed to run on google collab to take advantage of the added computational power from the GPU. the notebook can be ran without google collab but it is highly recommended to use it to minimize computational time.
 
 To train:
-The BertSubmission.ipynb contains two code cells, the first one is used to train the BERT model, after which it saves the model in a folder.
+The BertSubmission.ipynb contains two code cells, the first one is used to train the BERT model, after which it saves the model in the folder models.
 
 To evaluate:
-run the second code cell in BertSubmission.ipynb, this cell loads the model and generates a submission.csv file to evaluate the model's accuracy.
+run the second code cell in BertSubmission.ipynb, this cell loads the model and generates a BertSubmission.csv file to evaluate the model's accuracy.
 
 **Note:**
 You may need to adjust the variable `folder_path` to match your own environment.
