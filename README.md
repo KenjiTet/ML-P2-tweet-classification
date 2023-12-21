@@ -23,6 +23,9 @@ ML-P2-Tweet-classification/
 │   └── rnn.py
 |
 ├── notebooks/
+│   ├── EDA images/
+|   |   └── images.png
+│   ├── BertSubmission.ipynb
 │   └── EDA.ipynb
 |
 ├── predictions/

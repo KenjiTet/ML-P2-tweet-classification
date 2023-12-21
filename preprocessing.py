@@ -5,46 +5,43 @@ from nltk.stem import WordNetLemmatizer
 import nltk
 nltk.download('wordnet')
 
+EMOJI_DICT = {
+    ' [:,=,8,;]( )*([\',\"])*( )*(-)*( )*[\),\],},D,>,3,d] ': ' happy ',
+    ' [\(,\[,{,<]( )*([\',\"])*( )*[:,=,8,;] ': ' happy ',
+    ' [X,x]( )*D ': ' funny ',
+    ' ^( )*[.,~]( )*^ ': ' happy ',
+    ' ^( )*(_)+( )*^ ': ' happy ',
+    ' [:,=,8,;]( )*([\',\"])*( )*(-)*( )*[\(,\[,{,<] ': ' sad ',
+    ' [\),\],},D,>,d]( )*(-)*( )*([\',\"])*( )*[:,=,8,;] ': ' sad ',
+    ' >( )*.( )*< ': ' sad ',
+    ' <( )*[ \/,\\ ]( )*3 ': ' sad ',
+    ' [:,=,8]( )*(-)*( )*p ': ' silly ',
+    ' q( )*(-)*( )*[:,=,8] ': ' silly ',
+    ' [:,=,8]( )*$ ': ' confused ',
+    ' [:,=,8]( )*@ ': ' mad ',
+    ' [:,=,8]( )*(-)*( )*[\/,\\,|] ': ' confused ',
+    ' [\/,\\,|]( )*(-)*( )*[:,=,8] ': ' confused ',
+    ' [:,=,8,;]( )*(-)*( )*[o,0] ': ' surprised ',
+    ' [x,X]+ ': ' kiss ',
+    ' ([x,X][o,O]){2,} ': ' kiss ',
+    ' [:,=,8,;]( )*\* ': ' kiss ',
+    ' <( )*3 ': ' love ',
+    '#': ' hashtag ',
+    '&': ' and ',
+    ' \(( )*y( )*\) ': ' yes ',
+    ' w( )*/ ': ' without ',
+    ' ([h,j][a,e,i,o]){2,} ': ' haha ',
+    ' (a*ha+h[ha]*|h*ah+a[ah]*|o?l+o+l+[ol]*) ': ' haha ',
+    ' (i*hi+h[hi]*|h*ih+i[ih]*|h*oh+o[oh]*|h*eh+e[eh]*) ': ' haha '
+}
 
 
 def translate_emojis(x):
-    """ Replace emojis into words """
-    
-    x = re.sub(' [:,=,8,;]( )*([\',\"])*( )*(-)*( )*[\),\],},D,>,3,d] ', ' happy ', x) 
-    x = re.sub(' [\(,\[,{,<]( )*([\',\"])*( )*[:,=,8,;] ', ' happy ', x)
-    x = re.sub(' [X,x]( )*D ', ' funny ', x) 
-    x = re.sub(' ^( )*[.,~]( )*^ ', ' happy ', x)
-    x = re.sub(' ^( )*(_)+( )*^ ', ' happy ', x)
-    
-    x = re.sub(' [:,=,8,;]( )*([\',\"])*( )*(-)*( )*[\(,\[,{,<] ', ' sad ', x) 
-    x = re.sub(' [\),\],},D,>,d]( )*(-)*( )*([\',\"])*( )*[:,=,8,;] ', ' sad ', x) 
-    x = re.sub(' >( )*.( )*< ', ' sad ', x)
-    x = re.sub(' <( )*[ \/,\\ ]( )*3 ', ' sad ', x) 
-    
-    x = re.sub(' [:,=,8]( )*(-)*( )*p ', ' silly ', x) 
-    x = re.sub(' q( )*(-)*( )*[:,=,8] ', ' silly ', x) 
-    
-    x = re.sub(' [:,=,8]( )*$ ', ' confused ', x) 
-    x = re.sub(' [:,=,8]( )*@ ', ' mad ', x) 
-    x = re.sub(' [:,=,8]( )*(-)*( )*[\/,\\,|] ', ' confused ', x) 
-    x = re.sub(' [\/,\\,|]( )*(-)*( )*[:,=,8] ', ' confused ', x) 
-    
-    x = re.sub(' [:,=,8,;]( )*(-)*( )*[o,0] ', ' surprised ', x) 
-    
-    x = re.sub(' [x,X]+ ', ' kiss ', x) 
-    x = re.sub(' ([x,X][o,O]){2,} ', ' kiss ', x) 
-    x = re.sub(' [:,=,8,;]( )*\* ', ' kiss ', x) 
-    x = re.sub(' <( )*3 ', ' love ', x) 
-    
-    x = re.sub('#', ' hashtag ', x) 
-    x = re.sub('&', ' and ', x) 
-    x = re.sub(' \(( )*y( )*\) ', ' yes ', x)
-    x = re.sub(' w( )*/ ', ' without ', x) 
-    
-    x = re.sub(' ([h,j][a,e,i,o]){2,} ', ' haha ', x) 
-    x = re.sub(' (a*ha+h[ha]*|h*ah+a[ah]*|o?l+o+l+[ol]*) ', ' haha ', x) 
-    x = re.sub(' (i*hi+h[hi]*|h*ih+i[ih]*|h*oh+o[oh]*|h*eh+e[eh]*) ', ' haha ', x) 
+    """ Replace emojis into words using the EMOJI_DICT """
+    for pattern, replacement in EMOJI_DICT.items():
+        x = re.sub(pattern, replacement, x)
     return x
+
 
 
 def split_negation(text):
@@ -189,7 +186,7 @@ def preprocess_tweets(size):
 
     train_set, _ = clean_train_test(size)
 
-    with open(f"resources/tweet_{size}.pkl", "wb") as f:
+    with open(f"resources/tweet_{size}_test.pkl", "wb") as f:
         pickle.dump(train_set, f)  
 
 
